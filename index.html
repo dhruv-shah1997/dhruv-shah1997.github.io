@@ -1,22 +1,653 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin-top: 100px;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dhruv Shah | Physician & Public Health Professional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --teal: #1a7f6e;
+      --teal-light: #22a891;
+      --gold: #c9a84c;
+      --cream: #f5f0e8;
+      --light: #f9f7f3;
+      --text: #2c2c2c;
+      --muted: #6b7280;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(13, 27, 42, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.3rem; font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none; font-size: 0.85rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -30%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(26,127,110,0.3) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -20%; left: 20%;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-label {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--teal-light); margin-bottom: 1rem; font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 900; color: #fff;
+      line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem; line-height: 1.8;
+      max-width: 480px; margin-bottom: 2.5rem;
+    }
+    .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      padding: 0.75rem 1.75rem; border-radius: 4px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      font-weight: 500; cursor: pointer; text-decoration: none;
+      transition: all 0.2s; display: inline-block;
+    }
+    .btn-primary {
+      background: var(--teal); color: #fff;
+      border: 2px solid var(--teal);
+    }
+    .btn-primary:hover { background: var(--teal-light); border-color: var(--teal-light); }
+    .btn-outline {
+      background: transparent; color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--navy); }
+
+    .hero-stats {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      transition: transform 0.3s;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-card .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 700;
+      color: var(--gold); display: block;
+    }
+    .stat-card .label {
+      color: rgba(255,255,255,0.6); font-size: 0.8rem;
+      margin-top: 0.3rem; line-height: 1.4;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); font-weight: 600; margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 700; color: var(--navy); margin-bottom: 3rem;
+    }
+    .section-title span { color: var(--teal); }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start;
+    }
+    .about-sidebar {
+      background: var(--navy); border-radius: 16px; padding: 2rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .about-sidebar h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.1rem; margin-bottom: 1.2rem;
+    }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 1rem; font-size: 0.88rem; line-height: 1.5;
+    }
+    .contact-icon {
+      width: 32px; height: 32px; background: rgba(26,127,110,0.3);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 0.9rem;
+    }
+    .about-content p {
+      font-size: 1rem; line-height: 1.85; color: #444;
+      margin-bottom: 1.2rem;
+    }
+    .about-content p strong { color: var(--navy); }
+
+    /* ── EXPERTISE ── */
+    #expertise { background: var(--light); }
+    .expertise-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+    .expertise-card {
+      background: #fff; border: 1px solid #e8e4dc;
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      border-left: 4px solid var(--teal);
+      font-size: 0.9rem; font-weight: 500; color: var(--text);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .expertise-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+      transform: translateY(-2px);
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--cream); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--teal), var(--gold));
+    }
+    .timeline-item {
+      position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem;
+    }
+    .timeline-dot {
+      position: absolute; left: -2.6rem; top: 0.4rem;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--teal); border: 3px solid var(--cream);
+    }
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;
+    }
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--navy);
+    }
+    .exp-date {
+      font-size: 0.8rem; color: var(--teal); font-weight: 500;
+      background: rgba(26,127,110,0.1); padding: 0.25rem 0.6rem;
+      border-radius: 4px; white-space: nowrap;
+    }
+    .exp-org {
+      font-size: 0.85rem; font-weight: 600; color: var(--gold);
+      margin-bottom: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 0.9rem; line-height: 1.7; color: #555;
+      padding-left: 1rem; position: relative; margin-bottom: 0.35rem;
+    }
+    .exp-bullets li::before {
+      content: '→'; position: absolute; left: 0; color: var(--teal);
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--light); }
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .edu-card {
+      background: #fff; border-radius: 12px; padding: 1.75rem;
+      border-top: 4px solid var(--gold);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem;
+    }
+    .edu-school { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .edu-year { font-size: 0.8rem; color: var(--teal); font-weight: 600; }
+    .edu-note {
+      margin-top: 0.75rem; font-size: 0.85rem; color: #555;
+      font-style: italic;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--navy); }
+    #certifications .section-title { color: #fff; }
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .cert-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      font-size: 0.88rem; color: rgba(255,255,255,0.8);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .cert-item::before {
+      content: '✓'; color: var(--teal-light);
+      font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── SKILLS TOOLS ── */
+    #tools { background: var(--cream); }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+    .tool-tag {
+      background: #fff; border: 1px solid #ddd; border-radius: 6px;
+      padding: 0.6rem 0.9rem; font-size: 0.82rem; text-align: center;
+      color: var(--text); font-weight: 500;
+    }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements { background: var(--light); }
+    .achieve-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .achieve-card {
+      background: #fff; border-radius: 12px; padding: 1.75rem;
+      border-left: 5px solid var(--teal);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .achieve-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .achieve-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .achieve-card p { font-size: 0.88rem; color: #666; line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.5);
+      text-align: center; padding: 2.5rem; font-size: 0.85rem;
+    }
+    footer a { color: var(--teal-light); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.7s forwards;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello, I'm Dhruv Shah 👋</h1>
-    <p>Welcome to my GitHub portfolio website!</p>
-    <p>I am a physician and a public health professional.</p>
-    <a href="https://github.com/dhruv-shah1997.github.io">My GitHub</a>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Dr. Dhruv Shah</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text fade-in">
+      <div class="hero-label">Physician · Public Health Professional</div>
+      <h1>Hello, I'm<br/><span>Dhruv Shah</span></h1>
+      <p class="hero-desc">
+        Physician and public health professional with 4+ years of experience spanning clinical care, risk management, compliance, patient safety, and regulatory documentation across international settings.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:dhruv37787@gmail.com" class="btn btn-primary">Get in Touch</a>
+        <a href="https://linkedin.com/in/dr-dhruv-shah" target="_blank" class="btn btn-outline">LinkedIn Profile</a>
+      </div>
+    </div>
+    <div class="hero-stats fade-in" style="animation-delay:0.2s">
+      <div class="stat-card">
+        <span class="num">4+</span>
+        <span class="label">Years Healthcare Experience</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">8K+</span>
+        <span class="label">Patients Served</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">300+</span>
+        <span class="label">Clinical Policies Drafted</span>
+      </div>
+      <div class="stat-card">
+        <span class="num">2</span>
+        <span class="label">Advanced Degrees (MD + MPH)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-sidebar">
+        <h3>Contact</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <span>Boston, MA, USA</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <a href="mailto:dhruv37787@gmail.com" style="color:rgba(255,255,255,0.8)">dhruv37787@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <span>+1 (774) 486-1272</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🔗</div>
+          <a href="https://linkedin.com/in/dr-dhruv-shah" target="_blank" style="color:rgba(255,255,255,0.8)">linkedin.com/in/dr-dhruv-shah</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💻</div>
+          <a href="https://github.com/dhruv-shah1997" target="_blank" style="color:rgba(255,255,255,0.8)">GitHub Portfolio</a>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-label">Who I Am</div>
+        <h2 class="section-title">Mission-Driven<br/><span>Healthcare Leader</span></h2>
+        <p>
+          I am a <strong>licensed physician and public health professional</strong> with demonstrated expertise across clinical care, risk management, compliance, and patient safety in both international and domestic settings.
+        </p>
+        <p>
+          My work bridges the gap between frontline medicine and systems-level public health — from investigating disease outbreaks and conducting root cause analyses to drafting evidence-based clinical policies aligned with CMS, HRSA, HIPAA, and DPH standards.
+        </p>
+        <p>
+          Driven by a commitment to <strong>health equity and underserved populations</strong>, I have contributed to global initiatives with UNICEF and the Kyrgyzstan Ministry of Health, led community health outreach across continents, and earned recognition including the <strong>APHA 2025 Most Outstanding Research Poster</strong> — featured in the Times of India.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <div class="section-label">What I Bring</div>
+    <h2 class="section-title">Core <span>Expertise</span></h2>
+    <div class="expertise-grid">
+      <div class="expertise-card">Risk Management & Patient Safety</div>
+      <div class="expertise-card">Compliance & Regulatory Readiness</div>
+      <div class="expertise-card">Incident Investigation & Root Cause Analysis</div>
+      <div class="expertise-card">Accreditation & Licensure Support</div>
+      <div class="expertise-card">Policy & Procedure Development</div>
+      <div class="expertise-card">Clinical Audits & Workflow Improvement</div>
+      <div class="expertise-card">HRSA & Public Health Regulations</div>
+      <div class="expertise-card">HIPAA & Patient Confidentiality</div>
+      <div class="expertise-card">Training Program Design & Delivery</div>
+      <div class="expertise-card">Quality Improvement (QI)</div>
+      <div class="expertise-card">Patient Grievances & Complaints</div>
+      <div class="expertise-card">Health Equity & Community Health</div>
+      <div class="expertise-card">University-Level Teaching</div>
+      <div class="expertise-card">Curriculum & Training Development</div>
+      <div class="expertise-card">Research Conference Planning</div>
+      <div class="expertise-card">Cross-Functional Team Collaboration</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career Journey</div>
+    <h2 class="section-title">Professional <span>Experience</span></h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">Medical Writer / Clinical Policy Specialist</div>
+          <div class="exp-date">May 2025 – Apr 2026</div>
+        </div>
+        <div class="exp-org">Cohere Health · Boston, MA</div>
+        <ul class="exp-bullets">
+          <li>Drafted, reviewed, and maintained 300+ evidence-based clinical policies aligned with CMS NCD/LCD guidance, internal SOPs, and regulatory documentation standards.</li>
+          <li>Conducted quality and compliance reviews to ensure policy accuracy, consistency, and adherence to clinical and regulatory standards.</li>
+          <li>Collaborated with medical directors, clinical SMEs, and operations teams to identify policy gaps and recommend corrective actions.</li>
+          <li>Supported version control and documentation governance through Jira, Confluence, and SharePoint.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">Adjunct Faculty</div>
+          <div class="exp-date">May 2025 – Apr 2026</div>
+        </div>
+        <div class="exp-org">MCPHS University · Boston, MA</div>
+        <ul class="exp-bullets">
+          <li>Designed and delivered a Research Readiness & Compliance certification program via LMS covering IRB processes, ethics, and regulatory requirements.</li>
+          <li>Led a 40-member Student Advisory Board, establishing governance workflows and training materials.</li>
+          <li>Served as peer grant reviewer and conference poster evaluator, assessing methodological rigor and ethical compliance.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">MPH Intern / Research & Teaching Assistant</div>
+          <div class="exp-date">Jan 2024 – Apr 2025</div>
+        </div>
+        <div class="exp-org">MCPHS University · Boston, MA</div>
+        <ul class="exp-bullets">
+          <li>Developed suicide prevention content for 5,000+ students using CDC/MindWise frameworks; designed 10+ digital campaigns boosting engagement by 40%.</li>
+          <li>Led grant writing, IRB applications, and literature reviews for a digital literacy program for older adults.</li>
+          <li>Taught 80+ students in lab courses; developed provider tools on heavy metal exposure risks for 250+ physicians aligned with WHO, CDC, and IRB standards.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">Medical Officer</div>
+          <div class="exp-date">Apr 2022 – Dec 2022</div>
+        </div>
+        <div class="exp-org">Health 1 Super Specialty Hospital · Ahmedabad, India</div>
+        <ul class="exp-bullets">
+          <li>Delivered direct clinical care to 8,000+ patients while supporting patient safety initiatives and protocol compliance.</li>
+          <li>Assigned to district-level Measles Outbreak Investigation Committee, conducting root cause analysis to identify transmission gaps.</li>
+          <li>Participated in clinical audits, documentation reviews, and corrective workflow redesign improving infection control practices.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">Junior Resident Doctor</div>
+          <div class="exp-date">Jan 2023 – May 2023</div>
+        </div>
+        <div class="exp-org">Dr. N.D. Desai Faculty of Medical Science & Research · India</div>
+        <ul class="exp-bullets">
+          <li>Provided inpatient and outpatient pediatric care to 4,000+ patients, ensuring adherence to clinical protocols and patient safety standards.</li>
+          <li>Supported incident reporting, morbidity discussions, and clinical quality reviews.</li>
+          <li>Mentored interns and junior staff on safe clinical practices and escalation pathways.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-header">
+          <div class="exp-role">Peer Reviewer</div>
+          <div class="exp-date">Jan 2022 – Dec 2024</div>
+        </div>
+        <div class="exp-org">Wiley Health Science Reports Journal</div>
+        <ul class="exp-bullets">
+          <li>Reviewed manuscripts for ethical compliance, methodological rigor, data integrity, and reporting standards.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">Master of Public Health (MPH)</div>
+        <div class="edu-school">MCPHS University · Boston, MA</div>
+        <div class="edu-year">Sep 2023 – May 2025</div>
+        <div class="edu-note">🏆 Dean's Award Winner for Academic Excellence & Leadership</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Doctor of Medicine (MD)</div>
+        <div class="edu-school">Emilio Aguinaldo College · Manila, Philippines</div>
+        <div class="edu-year">Aug 2017 – Jul 2021</div>
+        <div class="edu-note">🏅 Dean's List · Clinico-Pathological Cases Competition Winner</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">BS Biology</div>
+        <div class="edu-school">Emilio Aguinaldo College · Manila, Philippines</div>
+        <div class="edu-year">Jan 2016 – Jul 2017</div>
+        <div class="edu-note">🏅 Dean's List</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Achievements & <span>Impact</span></h2>
+    <div class="achieve-cards">
+      <div class="achieve-card">
+        <div class="icon">🏆</div>
+        <h3>APHA 2025 Outstanding Research Poster</h3>
+        <p>Winner of the most outstanding research poster presentation category at APHA 2025, with the story featured in the Times of India National Newspaper.</p>
+      </div>
+      <div class="achieve-card">
+        <div class="icon">🌍</div>
+        <h3>UNICEF & WHO Global Contribution</h3>
+        <p>Developed provider tools and training content on heavy metal exposure now used by Kyrgyzstan's Ministry of Health and UNICEF.</p>
+      </div>
+      <div class="achieve-card">
+        <div class="icon">❤️</div>
+        <h3>Community Care — Lima, Peru</h3>
+        <p>Led MEDLIFE outreach service trips to Lima, Peru, providing direct care and health education to 800+ underserved individuals.</p>
+      </div>
+      <div class="achieve-card">
+        <div class="icon">🎓</div>
+        <h3>Dean's Award — MCPHS University</h3>
+        <p>Awarded for outstanding academic excellence and leadership during the MPH program.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-label" style="color:var(--teal-light)">Credentials</div>
+    <h2 class="section-title">Licenses & <span style="color:var(--gold)">Certifications</span></h2>
+    <div class="cert-grid">
+      <div class="cert-item">MD Physician Licence — Gujarat Medical Council, India (G-77476)</div>
+      <div class="cert-item">AHA – Basic Life Support (BLS)</div>
+      <div class="cert-item">Basic Neonatal Resuscitation Care Provider</div>
+      <div class="cert-item">CITI: Public Health Researchers Certification</div>
+      <div class="cert-item">CDC: Introduction to Policy Analysis in Public Health</div>
+      <div class="cert-item">ATSDR Public Health Assessment Training (Modules 1–8)</div>
+      <div class="cert-item">UNICEF & WHO: Children's Environmental Health Training</div>
+      <div class="cert-item">Pharmacovigilance Training with Internship (AIIMS, New Delhi)</div>
+      <div class="cert-item">Johns Hopkins University: R Programming</div>
+      <div class="cert-item">Harvard University: R Basics</div>
+      <div class="cert-item">CSULB: Public Health Information Technology (PHIT)</div>
+      <div class="cert-item">Suicide Prevention Training — MindWise Innovations</div>
+      <div class="cert-item">Hospital Infection Prevention Training</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="section-label">Tech & Tools</div>
+    <h2 class="section-title">Software & <span>Platforms</span></h2>
+    <div class="tools-grid">
+      <div class="tool-tag">Microsoft Word</div>
+      <div class="tool-tag">PowerPoint</div>
+      <div class="tool-tag">Excel</div>
+      <div class="tool-tag">Confluence</div>
+      <div class="tool-tag">Jira</div>
+      <div class="tool-tag">SharePoint</div>
+      <div class="tool-tag">Monday.com</div>
+      <div class="tool-tag">Slack</div>
+      <div class="tool-tag">Canva</div>
+      <div class="tool-tag">Epic EMR</div>
+      <div class="tool-tag">STATA</div>
+      <div class="tool-tag">R (Statistical)</div>
+      <div class="tool-tag">Covidence</div>
+      <div class="tool-tag">Rayyan</div>
+      <div class="tool-tag">Taguette</div>
+      <div class="tool-tag">Dedoose</div>
+      <div class="tool-tag">EndNote</div>
+      <div class="tool-tag">Zotero</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Dhruv Shah · Physician & Public Health Professional · Boston, MA</p>
+  <p style="margin-top:0.5rem">
+    <a href="mailto:dhruv37787@gmail.com">dhruv37787@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/dr-dhruv-shah" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://github.com/dhruv-shah1997" target="_blank">GitHub</a>
+  </p>
+</footer>
+
 </body>
 </html>
